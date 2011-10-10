@@ -57,5 +57,13 @@ if (test "${enable_capng}" = "yes"); then
 	AC_DEFINE(HAVE_CAPNG, 1, [Define to 1 if you have capabilities library.])
 fi
 
+if (test "${enable_hid2hci}" = "yes"); then
+        PKG_CHECK_MODULES(UDEV, libudev, dummy=yes,
+                                AC_MSG_ERROR(udev library is required))
+        AC_SUBST(UDEV_CFLAGS)
+        AC_SUBST(UDEV_LIBS)
+        AC_DEFINE(HAVE_UDEV, 1, [Define to 1 if you have udev library.])
+fi
+
 AC_OUTPUT(Makefile scripts/bluetooth.rules doc/version.xml
 					src/bluetoothd.8 bluez.pc)
